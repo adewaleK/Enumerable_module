@@ -57,6 +57,19 @@ def my_none?
   result 
 end
 
+def my_count
+  count = 0
+  if block_given?
+    self.my_each do |item|
+    count += 1 if yield(item)
+    end
+  else
+    count = self.count
+  end
+  count
+end 
+
+
 
 
 
@@ -67,5 +80,5 @@ end
 
 end
 
-result = [4,12,7].my_all? { |n| n.even? }
+result = [4,12,8].my_count { |n| n.even? }
 puts result
