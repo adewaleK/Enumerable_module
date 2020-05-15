@@ -67,7 +67,18 @@ def my_count
     count = self.count
   end
   count
-end 
+end
+
+
+def my_map(&my_proc)
+  result_array = []
+  self.my_each do |item|
+    my_proc.nil? ? new_array << (my_proc.call(item)) :
+    result_array << (yield(item))
+  end
+  return result_array
+end
+
 
 
 
@@ -80,5 +91,7 @@ end
 
 end
 
-result = [4,12,8].my_count { |n| n.even? }
+result = [1,2,3].my_map do |item|
+  2 * item
+end
 puts result
