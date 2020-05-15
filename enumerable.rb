@@ -17,6 +17,18 @@ module Enumerable
       end
       self
     end
+
+    
+  def my_select
+    selected = []
+    self.my_each do |n|
+    if yield(n)
+    selected << n
+    end
+  end
+  selected
+end
+
     
     
     
@@ -24,7 +36,5 @@ module Enumerable
 
 end
 
-[1,2,3].my_each_with_index {
-    |x,i|
-    puts "index is #{i} and value is #{x}"
-}
+result = [1,2,3,4,5,6].my_select { |n| n.even? }
+puts result
