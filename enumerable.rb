@@ -40,6 +40,17 @@ def my_any?
 end
 
 
+def my_none?
+  result = true
+  self.my_each do |item|
+   result = false if yield(item) 
+  end
+  result 
+end
+
+
+
+
     
     
     
@@ -47,5 +58,5 @@ end
 
 end
 
-result = [1,7,3,].my_any? { |n| n.even? }
+result = [1,7,3,].my_none? { |n| n.even? }
 puts result
