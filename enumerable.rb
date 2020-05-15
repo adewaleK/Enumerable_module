@@ -31,6 +31,15 @@ module Enumerable
 end
 
 
+def my_all?
+  result = true
+  self.my_each do |item|
+   result = false if !yield(item) 
+  end
+  result
+end
+
+
 def my_any?
   result = false
   self.my_each do |item|
@@ -58,5 +67,5 @@ end
 
 end
 
-result = [1,7,3,].my_none? { |n| n.even? }
+result = [4,12,7].my_all? { |n| n.even? }
 puts result
