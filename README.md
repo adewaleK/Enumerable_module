@@ -20,16 +20,13 @@
 * [Built With](#built-with)
 * [Getting Started](#getting-started)
 * [Contributing](#contributing)
-* [License](#license)
 * [Contact](#contact)
-* [Acknowledgements](#acknowledgements)
-
 
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-In this project, I recreated the following Ruby Methods for the Enumerables Module:
+Enumerable is a collection of iteration methods, a Ruby module, and a big part of what makes Ruby a great programming language. In this project, I recreated my own version of Ruby Enumerable methods:
 #my_each
 #my_each_with_index
 #my_select
@@ -39,7 +36,6 @@ In this project, I recreated the following Ruby Methods for the Enumerables Modu
 #my_count
 #my_map
 #my_inject
-#multiply_els
 
 <br>
 <br>
@@ -48,13 +44,12 @@ For more details about the Project and it's requirements go to <a href="https://
 ### Built With
 
 * [RUBY](https://ruby-doc.org/)
+* VS-CODE
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get a local copy up and running follow these simple steps.
-
-Clone or fork the repo <https://github.com/mkezmkez/ruby-enumerables>
+Clone or fork the repo <https://github.com/adewaleK/Enumerable_module.git> to get a copy and explore the content of the Enumerrable  mpdule
 
 
 <!-- CONTRIBUTING -->
@@ -63,28 +58,12 @@ Clone or fork the repo <https://github.com/mkezmkez/ruby-enumerables>
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+2. Create your Feature Branch (`git checkout -b [Branch-name]`)
+3. Commit your Changes (`git commit -m '[Commit-message]'`)
+4. Push to the Branch (`git push origin [Branch-name]`)
 5. Open a Pull Request
 
-
-
-<!-- LICENSE -->
-## License
-
-No licenses required as project was developed in educational eviroment.
-
-
-<!-- CONTACT -->
 ## Contact
 
-Luis Puente - [@mkezmkez](https://twitter.com/mkezkmez) - puente.luism@gmail.com
-Project Link: [github.com/mkezmkez/ruby-enumerables](https://github.com/mkezmkez/ruby-enumerables)
+Kamilu Adewale - [@KamiluAdewale](https://twitter.com/KamiluAdewale) - devkamilnaija@gmail.com
 
-
-
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-
-* [LUIS PUENTE](https://github.com/mkezmkez)
