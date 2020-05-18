@@ -106,19 +106,25 @@ def my_inject(*args)
   end
   result
 end
-end
 
+# Testing my_inject with a multiplication function
 
-
-
-  
-    
-
-
-
-res = [10, 20, 30, 5, 7, 9, 3].my_inject([]) do |result, element| 
-  result.push(element) if element > 9
+def multiply_els(arr)
+  result = arr.my_inject{|acc, n| acc*n}
   result
 end
 
-puts res
+
+end
+
+
+def multiply_els(arr)
+  result = arr.my_inject(:*)
+  result
+end
+
+puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
+
+# Proc to test the implementation of the my_map method
+
+puts 'array.map { |n| n * 7 } output: ' + [1,2,3].map { |n| n * 7 }.to_s
