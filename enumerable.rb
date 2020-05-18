@@ -79,19 +79,46 @@ def my_map(&my_proc)
   return result_array
 end
 
-
-
-
-
-
-    
-    
-    
-
-
+def my_inject(*args) 
+  arr = to_a
+  if block_given?
+    arr = dup.to_a
+    result = args[0].nil? ? arr[0] : args[0]
+    arr.shift if args[0].nil?
+    arr.each do |n|
+      result = yield(result, n)
+    end
+    elsif !block_given?
+    arr = to_a
+    if args[1].nil?
+      symbol = args[0]
+      result = arr[0]
+      arr[1..-1].my_each do |i|
+        result = result.send(symbol, i)
+    end
+    elsif !args[1].nil?
+      symbol = args[1]
+      result = args[0]
+      arr.my_each do |i|
+        result = result.send(symbol, i)
+      end
+    end
+  end
+  result
+end
 end
 
-result = [1,2,3].my_map do |item|
-  2 * item
+
+
+
+  
+    
+
+
+
+res = [10, 20, 30, 5, 7, 9, 3].my_inject([]) do |result, element| 
+  result.push(element) if element > 9
+  result
 end
-puts result
+
+puts res
