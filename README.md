@@ -44,7 +44,7 @@ For more details about the Project and it's requirements go to <a href="https://
 ### Built With
 
 * [RUBY](https://ruby-doc.org/)
-* VS-CODE
+* [VS-CODE]
 
 <!-- GETTING STARTED -->
 ## Getting Started
