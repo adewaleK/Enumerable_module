@@ -127,7 +127,3 @@ puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
 # Proc to test the implementation of the my_map method
 
 puts 'array.map { |n| n * 7 } output: ' + [1,2,3].map { |n| n * 7 }.to_s
-
-even_numbers = [4, 5, 6].my_select(&:even?)
-
-puts even_numbers
