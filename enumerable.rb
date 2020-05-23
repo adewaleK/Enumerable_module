@@ -36,20 +36,46 @@ module Enumerable
 
     
   def my_select
-    selected = []
-    self.my_each do |n|
-      selected << n if yield(n)
+    return to_enum unless block_given?
+    selected = self.class == Array ? [] : {}
+    if selected.class == Array
+      selected.my_each do |n|
+        selected << n if yield(n)
+      end
+    else
+      selected.my_each do |key, value|
+        selected[key] = value if yield(key, value)
+      end
     end
     selected
   end
 
 
-  def my_all?
-    result = true
-    self.my_each do |item|
-      result = false if !yield(item) 
+  def my_all?(param = nil)
+    return true if (self.class == Array && count.zero?) || (!block_given? &&
+        param.nil? && !include?(nil))
+    return false unless block_given? || !param.nil?
+
+    bool = true
+    if self.class == Array
+      my_each do |n|
+        if block_given?
+          bool = false unless yield(n)
+        elsif param.class == Regexp
+          bool = false unless n.match(param)
+        elsif param.class <= Numeric
+          bool = false unless n == param
+        else
+          bool = false unless n.class <= param
+        end
+        break unless bool
+      end
+    else
+      my_each do |key, value|
+        bool = false unless yield(key, value)
+      end
     end
-    result
+    bool
   end
 
 
@@ -144,8 +170,10 @@ end
 
 puts 'array.map { |n| n * 7 } output: ' + [1,2,3].map { |n| n * 7 }.to_s
 
-['kamil', 'wale'].my_each_with_index do |x,v|
-  puts "value is #{x}, index is #{v}"
+res = ['hello','hi', 'my', 'excell' ].my_all? do |k|
+  k.length > 3
 end
+
+puts res
 
 end
