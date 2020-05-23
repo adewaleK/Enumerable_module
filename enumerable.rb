@@ -52,8 +52,8 @@ module Enumerable
 
 
   def my_all?(param = nil)
-    return true if (self.class == Array && count.zero?) || (!block_given? &&
-        param.nil? && !include?(nil))
+    return true if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(nil))
+    
     return false unless block_given? || !param.nil?
 
     bool = true
@@ -79,12 +79,30 @@ module Enumerable
   end
 
 
-  def my_any?
-    result = false
-    self.my_each do |item|
-      result = true if yield(item) 
+  def my_any?(param = nil)
+    return false if (self.class == Array && count.zero?) || (!block_given? &&
+        param.nil? && !include?(true))
+    return true unless block_given? || !param.nil?
+
+    bool = false
+    if self.class == Array
+      my_each do |n|
+        if block_given?
+          bool = true if yield(n)
+        elsif param.class == Regexp
+          bool = true if n.match(param)
+        elsif param.class == String
+          bool = true if n == param
+        elsif n.class <= param
+          bool = true
+        end
+      end
+    else
+      my_each do |key, value|
+        bool = true if yield(key, value)
+      end
     end
-    result 
+    bool
   end
 
 
