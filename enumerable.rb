@@ -201,7 +201,7 @@ def multiply_els(arr)
   result
 end
 
-# puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
+puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
 
 # Proc to test the implementation of the my_map method
 
