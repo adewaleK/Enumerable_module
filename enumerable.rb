@@ -106,12 +106,31 @@ module Enumerable
   end
 
 
-  def my_none?
-    result = true
-    self.my_each do |item|
-      result = false if yield(item) 
+  def my_none?(param = nil)
+    return true if count.zero? || (self[0].nil? && !include?(true))
+    return false unless block_given? || !param.nil?
+
+    bool = true
+    if self.class == Array
+      my_each do |n|
+        if block_given?
+          bool = false if yield(n)
+        elsif param.class == Regexp
+          bool = false if n.match(param)
+        elsif param.class <= Numeric
+          bool = false if n == param
+        elsif n.class <= param
+          bool = false
+        end
+        break unless bool
+      end
+    else
+      my_each do |key, value|
+        bool = false if yield(key, value)
+        break unless bool
+      end
     end
-    result 
+    bool
   end
 
 
@@ -188,8 +207,8 @@ end
 
 puts 'array.map { |n| n * 7 } output: ' + [1,2,3].map { |n| n * 7 }.to_s
 
-res = ['hello','hi', 'my', 'excell' ].my_all? do |k|
-  k.length > 3
+res = ['hello','hi', 'my', 'excell' ].my_none? do |k|
+  k.length >= 6
 end
 
 puts res
