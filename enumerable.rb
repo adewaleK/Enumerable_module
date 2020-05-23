@@ -1,21 +1,37 @@
 module Enumerable
   def my_each
+    return to_enum unless block_given?
+
     x = 0
-    until x > self.length - 1
-      yield(self[x])
-      x += 1
+    new_class = self.class
+    result_array = if new_class == Array
+              self
+            elsif new_class == Range
+              to_a
+            else
+              flatten
+            end
+    while x < result_array.length
+      if new_class == Hash
+        yield(result_array[x], result_array[x + 1])
+        x += 2
+      else
+        yield(result_array[x])
+        x += 1
+      end
     end
-    self
   end
 
 
   def my_each_with_index
+    return to_enum unless block_given?
+    array = self.class == Array ? self : to_a
     x = 0
-    self.my_each do |name|
+    array.my_each do |name|
       yield(name, x)
       x += 1
     end
-    self
+    array
   end
 
     
@@ -122,8 +138,14 @@ def multiply_els(arr)
   result
 end
 
-puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
+# puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
 
 # Proc to test the implementation of the my_map method
 
 puts 'array.map { |n| n * 7 } output: ' + [1,2,3].map { |n| n * 7 }.to_s
+
+['kamil', 'wale'].my_each_with_index do |x,v|
+  puts "value is #{x}, index is #{v}"
+end
+
+end
