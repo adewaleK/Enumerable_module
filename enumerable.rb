@@ -4,13 +4,14 @@ module Enumerable
 
     x = 0
     new_class = self.class
-    result_array = if new_class == Array
-              self
-            elsif new_class == Range
-              to_a
-            else
-              flatten
-            end
+    result_array = 
+      if new_class == Array
+        self
+      elsif new_class == Range
+        to_a
+      else
+        flatten
+      end
     while x < result_array.length
       if new_class == Hash
         yield(result_array[x], result_array[x + 1])
@@ -25,6 +26,7 @@ module Enumerable
 
   def my_each_with_index
     return to_enum unless block_given?
+
     array = self.class == Array ? self : to_a
     x = 0
     array.my_each do |name|
@@ -34,9 +36,10 @@ module Enumerable
     array
   end
 
-    
+  
   def my_select
     return to_enum unless block_given?
+    
     selected = self.class == Array ? [] : {}
     if selected.class == Array
       selected.my_each do |n|
@@ -80,8 +83,8 @@ module Enumerable
 
 
   def my_any?(param = nil)
-    return false if (self.class == Array && count.zero?) || (!block_given? &&
-        param.nil? && !include?(true))
+    return false if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(true))
+        
     return true unless block_given? || !param.nil?
 
     bool = false
@@ -158,6 +161,7 @@ module Enumerable
     result_array
   end
 
+
   def my_inject(*args) 
     arr = to_a
     if block_given?
@@ -196,19 +200,19 @@ module Enumerable
 end
 
 
-def multiply_els(arr)
-  result = arr.my_inject(:*)
-  result
-end
+# def multiply_els(arr)
+#   result = arr.my_inject(:*)
+#   result
+# end
 
-puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
+# puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
 
 # Proc to test the implementation of the my_map method
 
-puts 'array.map { |n| n * 7 } output: ' + [1,2,3].map { |n| n * 7 }.to_s
+# puts 'array.map { |n| n * 7 } output: ' + [1,2,3].map { |n| n * 7 }.to_s
 
-res = ['hello','hi', 'my', 'excell' ].my_none? do |k|
-  k.length >= 6
+res = [1,3,7].my_map do |k|
+  k * 2
 end
 
 puts res
