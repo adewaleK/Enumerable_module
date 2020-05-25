@@ -4,7 +4,7 @@ module Enumerable
 
     x = 0
     new_class = self.class
-    result_array = 
+    result_array =
       if new_class == Array
         self
       elsif new_class == Range
@@ -25,6 +25,7 @@ module Enumerable
 
 
   def my_each_with_index
+
     return to_enum unless block_given?
 
     array = self.class == Array ? self : to_a
@@ -33,11 +34,12 @@ module Enumerable
       yield(name, x)
       x += 1
     end
-    array
+  array
   end
 
   
   def my_select
+
     return to_enum unless block_given?
     
     selected = self.class == Array ? [] : {}
@@ -50,11 +52,12 @@ module Enumerable
         selected[key] = value if yield(key, value)
       end
     end
-    selected
+  selected
   end
 
 
   def my_all?(param = nil)
+
     return true if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(nil))
     
     return false unless block_given? || !param.nil?
@@ -78,11 +81,12 @@ module Enumerable
         bool = false unless yield(key, value)
       end
     end
-    bool
+  bool
   end
 
 
   def my_any?(param = nil)
+
     return false if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(true))
         
     return true unless block_given? || !param.nil?
@@ -105,12 +109,14 @@ module Enumerable
         bool = true if yield(key, value)
       end
     end
-    bool
+  bool
   end
 
 
   def my_none?(param = nil)
+
     return true if count.zero? || (self[0].nil? && !include?(true))
+
     return false unless block_given? || !param.nil?
 
     bool = true
@@ -133,11 +139,12 @@ module Enumerable
         break unless bool
       end
     end
-    bool
+  bool
   end
 
 
   def my_count
+    
     count = 0
     if block_given?
       self.my_each do |item|
@@ -146,7 +153,7 @@ module Enumerable
     else
       count = self.count
     end
-    count
+  count
   end
 
 
@@ -190,7 +197,6 @@ module Enumerable
     result
   end
 
-# Testing my_inject with a multiplication function
 
   def multiply_els(arr)
     result = arr.my_inject { |acc, n| acc * n }
