@@ -1,7 +1,5 @@
-# frozen_string_literal: true
-
 module Enumerable
-  def my_each
+  def my_each # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     return to_enum unless block_given?
 
     x = 0
