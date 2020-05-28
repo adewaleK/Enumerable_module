@@ -1,5 +1,5 @@
 module Enumerable
-  def my_each # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def my_each
     return to_enum unless block_given?
 
     x = 0
@@ -25,7 +25,6 @@ module Enumerable
 
 
   def my_each_with_index
-
     return to_enum unless block_given?
 
     array = self.class == Array ? self : to_a
@@ -34,12 +33,11 @@ module Enumerable
       yield(name, x)
       x += 1
     end
-  array
+    array
   end
 
   
   def my_select
-
     return to_enum unless block_given?
     
     selected = self.class == Array ? [] : {}
@@ -52,12 +50,11 @@ module Enumerable
         selected[key] = value if yield(key, value)
       end
     end
-  selected
+    selected
   end
 
 
   def my_all?(param = nil)
-
     return true if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(nil))
     
     return false unless block_given? || !param.nil?
@@ -81,12 +78,11 @@ module Enumerable
         bool = false unless yield(key, value)
       end
     end
-  bool
+    bool
   end
 
 
   def my_any?(param = nil)
-
     return false if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(true))
         
     return true unless block_given? || !param.nil?
@@ -109,12 +105,11 @@ module Enumerable
         bool = true if yield(key, value)
       end
     end
-  bool
+    bool
   end
 
 
   def my_none?(param = nil)
-
     return true if count.zero? || (self[0].nil? && !include?(true))
 
     return false unless block_given? || !param.nil?
@@ -143,8 +138,7 @@ module Enumerable
   end
 
 
-  def my_count
-    
+  def my_count 
     count = 0
     if block_given?
       self.my_each do |item|
@@ -153,7 +147,7 @@ module Enumerable
     else
       count = self.count
     end
-  count
+    count
   end
 
 
@@ -185,6 +179,7 @@ module Enumerable
         result = arr[0]
         arr[1..-1].my_each do |i|
         result = result.send(symbol, i)
+        end
       end
       elsif !args[1].nil?
         symbol = args[1]
@@ -201,9 +196,7 @@ module Enumerable
   def multiply_els(arr)
     result = arr.my_inject { |acc, n| acc * n }
     result
-  end
-  
-end
+  end 
 
 
 # def multiply_els(arr)
@@ -212,9 +205,7 @@ end
 # end
 
  puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
-
 # Proc to test the implementation of the my_map method
-
 # puts 'array.map { |n| n * 7 } output: ' + [1,2,3].map { |n| n * 7 }.to_s
 
 res = [1,3,7].my_map do |k|
