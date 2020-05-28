@@ -211,16 +211,14 @@ end
 #   result
 # end
 
-# puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
+ puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
 
 # Proc to test the implementation of the my_map method
 
 # puts 'array.map { |n| n * 7 } output: ' + [1,2,3].map { |n| n * 7 }.to_s
 
 res = [1,3,7].my_map do |k|
-  +-***
   k * 2
 end
-+-----------------++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------++++++++++-++-+**********ts res
 
 end
