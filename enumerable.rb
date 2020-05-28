@@ -34,10 +34,10 @@ module Enumerable
     end
     array
   end
-  
+
   def my_select
     return to_enum unless block_given?
-    
+  
     selected = self.class == Array ? [] : {}
     if selected.class == Array
       selected.my_each do |n|
@@ -129,13 +129,13 @@ module Enumerable
         break unless bool
       end
     end
-  bool
+    bool
   end
 
-  def my_count 
+  def my_count
     count = 0
     if block_given?
-      self.my_each do |item|
+      my_each do |item|
         count += 1 if yield(item)
       end
     else
@@ -146,7 +146,7 @@ module Enumerable
 
   def my_map(&my_proc)
     result_array = []
-    self.my_each do |item|
+    my_each do |item|
       if my_proc.nil?
         new_array << my_proc.call(item)
       else
@@ -155,7 +155,7 @@ module Enumerable
     result_array
   end
 
-  def my_inject(*args) 
+  def my_inject(*args)
     arr = to_a
     if block_given?
       arr = dup.to_a
@@ -170,15 +170,14 @@ module Enumerable
         symbol = args[0]
         result = arr[0]
         arr[1..-1].my_each do |i|
-        result = result.send(symbol, i)
-        end
-      end
-      elsif !args[1].nil?
-        symbol = args[1]
-        result = args[0]
-        arr.my_each do |i|
           result = result.send(symbol, i)
         end
+      end
+    elsif !args[1].nil?
+      symbol = args[1]
+      result = args[0]
+      arr.my_each do |i|
+        result = result.send(symbol, i)
       end
     end
     result
@@ -188,7 +187,7 @@ end
 def multiply_els(arr)
   result = arr.my_inject { |acc, n| acc * n }
   result
-end 
+end
 
 # def multiply_els(arr)
 #   result = arr.my_inject(:*)
@@ -199,6 +198,4 @@ end
 # Proc to test the implementation of the my_map method
 # puts 'array.map { |n| n * 7 } output: ' + [1,2,3].map { |n| n * 7 }.to_s
 
-res = [1,3,7].my_map do |k|
-  k * 2
-end
+
