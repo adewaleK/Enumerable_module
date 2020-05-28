@@ -23,7 +23,6 @@ module Enumerable
     end
   end
 
-
   def my_each_with_index
     return to_enum unless block_given?
 
@@ -35,7 +34,6 @@ module Enumerable
     end
     array
   end
-
   
   def my_select
     return to_enum unless block_given?
@@ -52,7 +50,6 @@ module Enumerable
     end
     selected
   end
-
 
   def my_all?(param = nil)
     return true if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(nil))
@@ -81,7 +78,6 @@ module Enumerable
     bool
   end
 
-
   def my_any?(param = nil)
     return false if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(true))
         
@@ -107,7 +103,6 @@ module Enumerable
     end
     bool
   end
-
 
   def my_none?(param = nil)
     return true if count.zero? || (self[0].nil? && !include?(true))
@@ -137,7 +132,6 @@ module Enumerable
   bool
   end
 
-
   def my_count 
     count = 0
     if block_given?
@@ -150,7 +144,6 @@ module Enumerable
     count
   end
 
-
   def my_map(&my_proc)
     result_array = []
     self.my_each do |item|
@@ -161,7 +154,6 @@ module Enumerable
     end
     result_array
   end
-
 
   def my_inject(*args) 
     arr = to_a
@@ -191,25 +183,22 @@ module Enumerable
     end
     result
   end
+end
 
-
-  def multiply_els(arr)
-    result = arr.my_inject { |acc, n| acc * n }
-    result
-  end 
-
+def multiply_els(arr)
+  result = arr.my_inject { |acc, n| acc * n }
+  result
+end 
 
 # def multiply_els(arr)
 #   result = arr.my_inject(:*)
 #   result
 # end
 
- puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
+#  puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
 # Proc to test the implementation of the my_map method
 # puts 'array.map { |n| n * 7 } output: ' + [1,2,3].map { |n| n * 7 }.to_s
 
 res = [1,3,7].my_map do |k|
   k * 2
-end
-
 end
