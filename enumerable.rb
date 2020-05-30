@@ -37,18 +37,20 @@ module Enumerable
 
   def my_select
     return to_enum unless block_given?
-  
-    selected = self.class == Array ? [] : {}
-    if selected.class == Array
-      selected.my_each do |n|
-        selected << n if yield(n)
+
+    arr_to_work = self
+    if is_a? Array
+      myarr = []
+      arr_to_work.my_each do |item|
+        myarr.push(item) if yield(item)
       end
-    else
-      selected.my_each do |key, value|
-        selected[key] = value if yield(key, value)
+    elsif is_a? Hash
+      myarr = {}
+      arr_to_work.my_each do |k, v|
+        myarr[k] = v if yield(k, v)
       end
     end
-    selected
+    myarr
   end
 
   def my_all?(param = nil)
@@ -132,16 +134,25 @@ module Enumerable
     bool
   end
 
-  def my_count
-    count = 0
-    if block_given?
-      my_each do |item|
-        count += 1 if yield(item)
+  def my_count(xxx = nil)
+    return length unless block_given? || !xxx.nil?
+
+    my_arr = self
+    counter = 0
+    if !xxx.nil?
+      my_arr.my_each do |item|
+        counter += 1 if item == xxx
       end
-    else
-      count = self.count
+    elsif is_a? Array
+      my_arr.my_each do |item|
+        counter += 1 if yield(item)
+      end
+    elsif is_a? Hash
+      my_arr.my_each do |x, y|
+        counter += 1 if yield(x, y)
+      end
     end
-    count
+    counter
   end
 
   def my_map(&my_proc)
@@ -184,10 +195,10 @@ module Enumerable
   end
 end
 
-def multiply_els(arr)
-  result = arr.my_inject { |acc, n| acc * n }
-  result
-end
+# def multiply_els(arr)
+#   result = arr.my_inject { |acc, n| acc * n }
+#   result
+# end
 
 # def multiply_els(arr)
 #   result = arr.my_inject(:*)
@@ -199,3 +210,4 @@ end
 # puts 'array.map { |n| n * 7 } output: ' + [1,2,3].map { |n| n * 7 }.to_s
 
 
+[1,2,3,4,5,6].my_select { |n| n.even? }
