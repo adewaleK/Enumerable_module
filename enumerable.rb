@@ -1,50 +1,20 @@
 module Enumerable # rubocop:disable Metrics/ModuleLength
-  # def my_each
-  #   return to_enum unless block_given?
-
-  #   x = 0
-  #   new_class = self.class
-  #   result_array =
-  #     if new_class == Array
-  #       self
-  #     elsif new_class == Range
-  #       to_a
-  #     else
-  #       flatten
-  #     end
-  #   while x < result_array.length
-  #     if new_class == Hash
-  #       yield(result_array[x], result_array[x + 1])
-  #       x += 2
-  #     else
-  #       yield(result_array[x])
-  #       x += 1
-  #     end
-  #   end
-  # end
-
   def my_each
     return to_enum unless block_given?
 
-    x = 0
-    new_class = self.class
-    result_array =
-      if new_class == Array
-        self
-      elsif new_class == Range
-        to_a
-      else
-        flatten
+    if is_a? Array
+      i = 0
+      while i < size
+        yield(self[i])
+        i += 1
       end
-    while x < result_array.length
-      if new_class == Hash
-        yield(result_array[x], result_array[x + 1])
-        x += 2
-      else
-        yield(result_array[x])
-        x += 1
+    elsif is_a? Hash
+      while i < size
+        yield(values[i], keys[i])
+        i += 1
       end
     end
+    self
   end
 
   def my_each_with_index
@@ -230,4 +200,4 @@ def multiply_els(arr)
   result
 end
 
-puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
+puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5,]).to_s
