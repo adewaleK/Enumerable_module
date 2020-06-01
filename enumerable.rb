@@ -155,13 +155,19 @@ module Enumerable
     counter
   end
 
-  def my_map(&my_proc)
+  def my_map
+    return to_enum unless block_given?
+
+    arr = self
     result_array = []
-    my_each do |item|
-      if my_proc.nil?
-        new_array << my_proc.call(item)
-      else
-        result_array << yield(item)
+    if is_a? Array
+      arr.my_each do |k|
+        result_array << (yield(k))
+      end
+    elsif is_a? Hash
+      arr.my_each do |k, v|
+        result_array << (yield(k, v))
+      end
     end
     result_array
   end
@@ -195,19 +201,14 @@ module Enumerable
   end
 end
 
-# def multiply_els(arr)
-#   result = arr.my_inject { |acc, n| acc * n }
-#   result
-# end
-
-# def multiply_els(arr)
-#   result = arr.my_inject(:*)
-#   result
-# end
-
-#  puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
-# Proc to test the implementation of the my_map method
-# puts 'array.map { |n| n * 7 } output: ' + [1,2,3].map { |n| n * 7 }.to_s
+def multiply_els(arr)
+  result = arr.my_inject { |acc, n| acc * n }
+  result
+end
 
 
-[1,2,3,4,5,6].my_select { |n| n.even? }
+puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
+
+
+
+
