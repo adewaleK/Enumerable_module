@@ -1,4 +1,4 @@
-module Enumerable
+module Enumerable # rubocop:disable Metrics/ClassLength
   def my_each
     return to_enum unless block_given?
 
@@ -82,9 +82,9 @@ module Enumerable
 
   def my_any?(param = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     return false if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(true))
-     
-    return true unless block_given? || !param.nil?
 
+    return true unless block_given? || !param.nil?
+    
     bool = false
     if self.class == Array
       my_each do |n|
