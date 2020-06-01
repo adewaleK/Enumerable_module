@@ -82,7 +82,7 @@ module Enumerable
 
   def my_any?(param = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     return false if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(true))
-    
+     
     return true unless block_given? || !param.nil?
 
     bool = false
