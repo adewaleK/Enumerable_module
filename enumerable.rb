@@ -1,5 +1,5 @@
 module Enumerable
-  def my_each
+  def my_each # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     return to_enum unless block_given?
 
     x = 0
@@ -53,7 +53,7 @@ module Enumerable
     myarr
   end
 
-  def my_all?(param = nil)
+  def my_all?(param = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     return true if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(nil))
     
     return false unless block_given? || !param.nil?
@@ -80,9 +80,9 @@ module Enumerable
     bool
   end
 
-  def my_any?(param = nil)
+  def my_any?(param = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     return false if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(true))
-        
+       
     return true unless block_given? || !param.nil?
 
     bool = false
@@ -106,7 +106,7 @@ module Enumerable
     bool
   end
 
-  def my_none?(param = nil)
+  def my_none?(param = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     return true if count.zero? || (self[0].nil? && !include?(true))
 
     return false unless block_given? || !param.nil?
@@ -134,7 +134,7 @@ module Enumerable
     bool
   end
 
-  def my_count(xxx = nil)
+  def my_count(xxx = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     return length unless block_given? || !xxx.nil?
 
     my_arr = self
@@ -162,17 +162,17 @@ module Enumerable
     result_array = []
     if is_a? Array
       arr.my_each do |k|
-        result_array << (yield(k))
+        result_array << yield(k)
       end
     elsif is_a? Hash
       arr.my_each do |k, v|
-        result_array << (yield(k, v))
+        result_array << yield(k, v)
       end
     end
     result_array
   end
 
-  def my_inject(*args)
+  def my_inject(*args) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     arr = to_a
     if block_given?
       arr = dup.to_a
@@ -206,9 +206,4 @@ def multiply_els(arr)
   result
 end
 
-
 puts 'multiply_els([2, 4, 5]) result: ' + multiply_els([2, 4, 5]).to_s
-
-
-
-
