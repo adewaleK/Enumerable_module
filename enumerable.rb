@@ -1,5 +1,5 @@
 module Enumerable
-  def my_each # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def my_each
     return to_enum unless block_given?
 
     x = 0
@@ -55,7 +55,7 @@ module Enumerable
 
   def my_all?(param = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     return true if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(nil))
-    
+
     return false unless block_given? || !param.nil?
 
     bool = true
@@ -82,7 +82,7 @@ module Enumerable
 
   def my_any?(param = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     return false if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(true))
-       
+    
     return true unless block_given? || !param.nil?
 
     bool = false
