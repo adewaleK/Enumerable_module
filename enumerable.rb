@@ -47,85 +47,94 @@ module Enumerable # rubocop:disable Metrics/ModuleLength
     myarr
   end
 
-  def my_all?(param = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-    return true if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(nil))
-
-    return false unless block_given? || !param.nil?
-
-    bool = true
-    if self.class == Array
-      my_each do |n|
-        if block_given?
-          bool = false unless yield(n)
-        elsif param.class == Regexp
-          bool = false unless n.match(param)
-        elsif param.class <= Numeric
-          bool = false unless n == param
-        else
-          bool = false unless n.class <= param
-        end
-        break unless bool
+  def my_all?(pattern = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    my_arr = self
+    if !block_given? && pattern.nil?
+      my_arr.my_each do |item|
+        return false unless item
       end
-    else
-      my_each do |key, value|
-        bool = false unless yield(key, value)
+    elsif pattern.is_a? Regexp
+      my_arr.my_each do |item|
+        return false unless item =~ pattern
+      end
+    elsif pattern.is_a? Class
+      my_arr.my_each do |item|
+        return false unless item.is_a? pattern
+      end
+    elsif pattern
+      my_arr.my_each do |item|
+        return false unless item == pattern
+      end
+    elsif is_a? Array
+      my_arr.my_each do |item|
+        return false unless yield(item)
+      end
+    elsif is_a? Hash
+      my_arr.my_each do |k, v|
+        return false unless yield(k, v)
       end
     end
-    bool
+    true
   end
 
-  def my_any?(param = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-    return false if (self.class == Array && count.zero?) || (!block_given? && param.nil? && !include?(true))
-
-    return true unless block_given? || !param.nil?
-
-    bool = false
-    if self.class == Array
-      my_each do |n|
-        if block_given?
-          bool = true if yield(n)
-        elsif param.class == Regexp
-          bool = true if n.match(param)
-        elsif param.class == String
-          bool = true if n == param
-        elsif n.class <= param
-          bool = true
-        end
+  def my_any?(pattern = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    my_arr = self
+    if !block_given? && pattern.nil?
+      my_arr.my_each do |item|
+        return true if item
       end
-    else
-      my_each do |key, value|
-        bool = true if yield(key, value)
+    elsif pattern.is_a? Regexp
+      my_arr.my_each do |item|
+        return true if item =~ pattern
+      end
+    elsif pattern.is_a? Class
+      my_arr.my_each do |item|
+        return true if item.is_a? pattern
+      end
+    elsif pattern
+      my_arr.my_each do |item|
+        return true if item == pattern
+      end
+    elsif is_a? Array
+      my_arr.my_each do |item|
+        return true if yield(item)
+      end
+    elsif is_a? Hash
+      my_arr.my_each do |k, v|
+        return true if yield(k, v)
       end
     end
-    bool
+    false
   end
 
-  def my_none?(param = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-    return true if count.zero? || (self[0].nil? && !include?(true))
-
-    return false unless block_given? || !param.nil?
-
-    bool = true
-    if self.class == Array
-      my_each do |n|
-        if block_given?
-          bool = false if yield(n)
-        elsif param.class == Regexp
-          bool = false if n.match(param)
-        elsif param.class <= Numeric
-          bool = false if n == param
-        elsif n.class <= param
-          bool = false
-        end
-        break unless bool
+  def my_none?(pattern = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    my_arr = self
+    if !block_given? && pattern.nil?
+      my_arr.my_each do |item|
+        return false if item
       end
-    else
-      my_each do |key, value|
-        bool = false if yield(key, value)
-        break unless bool
+    elsif pattern.is_a? Regexp
+      my_arr.my_each do |item|
+        return false if item =~ pattern
+      end
+    elsif pattern.is_a? Class
+      my_arr.my_each do |item|
+        return false if item.is_a? pattern
+      end
+    elsif pattern
+      my_arr.my_each do |item|
+        return false if item == pattern
+      end
+    elsif is_a? Array
+      my_arr.my_each do |item|
+        return false if yield(item)
+      end
+    elsif is_a? Hash
+      my_arr.my_each do |k, v|
+        return false if yield(k, v)
       end
     end
-    bool
+    true
   end
 
   def my_count(xxx = nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
